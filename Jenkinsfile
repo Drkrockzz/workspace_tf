@@ -1,12 +1,12 @@
 pipeline {
     agent any 
     parameters{
-        choice(name: 'env', choices: ['stage','prod'], descriprion: 'Select environment')
+        choice(name: 'env', choices: ['stage','prod'], description: 'Select environment')
     }
     stages{
         stage("checkout code "){
             steps {
-            git branch:'' url:''
+            git branch:'',url:''
         }
         }
         stage("Initialize Terraform"){
