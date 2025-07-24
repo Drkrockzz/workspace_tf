@@ -29,5 +29,10 @@ pipeline {
                 sh 'terraform plan -var-file=terraform_${params.env}.tfvars -out=${params.env}_tfplan'
             }
         }
+        stage('provision params.env'){
+            steps{
+                sh ' terraform apply -auto-approve'
+            }
+        }
     }
 }
