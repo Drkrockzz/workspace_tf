@@ -6,9 +6,19 @@ pipeline {
     stages{
         stage("checkout code "){
             steps {
-            git branch:'',url:''
+            git branch:'master',url:'https://github.com/Drkrockzz/workspace_tf.git'
         }
         }
+        stage ('building backend'){
+            steps{
+                dir(backend-setup/){
+                    sh 'terraform init'
+                    sh 'terraform plan -out=backend_tfplan'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    
         stage("Initialize Terraform"){
             steps {
                 sh "terraform workspace new params.env || terraform workspace select params.env"
