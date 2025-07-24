@@ -11,7 +11,7 @@ pipeline {
         }
         stage ('building backend'){
             steps{
-                dir(backend-setup/){
+                dir('backend-setup'){
                     sh 'terraform init'
                     sh 'terraform plan -out=backend_tfplan'
                     sh 'terraform apply -auto-approve'
@@ -20,6 +20,12 @@ pipeline {
         }
     
         stage("Initialize Terraform"){
+            steps {
+                sh "terraform init"
+            }
+        }
+
+        stage("selecting workspace"){
             steps {
                 sh "terraform workspace new params.env || terraform workspace select params.env"
             }
